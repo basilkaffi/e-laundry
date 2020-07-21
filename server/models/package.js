@@ -13,9 +13,43 @@ module.exports = (sequelize, DataTypes) => {
   }
   Package.init(
     {
-      name: DataTypes.STRING,
-      description: DataTypes.STRING,
-      price: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "package name cannot be null",
+          },
+          notEmpty: {
+            msg: "package name cannot be empty string",
+          },
+        },
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "package description cannot be null",
+          },
+          notEmpty: {
+            msg: "package description cannot be empty string",
+          },
+        },
+      },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "price is null",
+          },
+          min: {
+            args: [1],
+            msg: "price cannot be equal or below zero",
+          },
+        },
+      },
     },
     {
       sequelize,
